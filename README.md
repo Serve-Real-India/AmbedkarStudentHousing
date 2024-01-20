@@ -2,8 +2,8 @@
 
 The Ambedkar Student Housing project is designed to address the accommodation needs of students
 traveling from India to the United States for educational purposes. The project focuses on creating
-an online platform similar to "roomies.com," where students can connect with each other to find shared 
-living arrangements.
+an online platform similar to "roomies.com," where students can connect with vendor which are willing to
+share the living place with Ambedkar community student.
 
 Key components of the project include:
 - User Profiles: Students can create detailed profiles containing information about themselves, their preferences, and their academic pursuits.
