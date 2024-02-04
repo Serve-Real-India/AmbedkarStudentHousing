@@ -1,53 +1,20 @@
-import 'dart:developer';
-
 import 'package:ambedkar_student_housing/screens/email_auth/signup_screen.dart';
-import 'package:ambedkar_student_housing/screens/home_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ambedkar_student_housing/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({ Key? key }) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  void login() async {
-    String email = emailController.text.trim();
-    String password = passwordController.text.trim();
-
-    if(email == "" || password == "") {
-      log("Please fill all the fields!");
-    }
-    else {
-
-      try {
-        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-        if(userCredential.user != null) {
-          if(userCredential.user!.emailVerified){
-            Navigator.popUntil(context, (route) => route.isFirst);
-              Navigator.pushReplacement(context, CupertinoPageRoute(
-                builder: (context) => HomeScreen()
-              ));
-          }else{
-            print('-----------------------------------------');
-            print('Please verify your email id');
-            print('-----------------------------------------');
-          }
-          
-          
-        }
-      } on FirebaseAuthException catch(ex) {
-        log(ex.code.toString());
-      }
-    }
-  }
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -55,59 +22,54 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         backgroundColor: Colors.red,
         centerTitle: true,
-        title: Text("Login"),
+        title: const Text("Login"),
       ),
       body: SafeArea(
         child: ListView(
           children: [
-
             Padding(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               child: Column(
                 children: [
-                  
                   TextField(
                     controller: emailController,
-                    decoration: InputDecoration(
-                      labelText: "Email Address"
-                    ),
+                    decoration:
+                        const InputDecoration(labelText: "Email Address"),
                   ),
-
-                  SizedBox(height: 10,),
-
+                  const SizedBox(
+                    height: 10,
+                  ),
                   TextField(
                     controller: passwordController,
-                    decoration: InputDecoration(
-                      labelText: "Password"
-                    ),
+                    decoration: const InputDecoration(labelText: "Password"),
                     obscureText: true,
                   ),
-
-                  SizedBox(height: 20,),
-
+                  const SizedBox(
+                    height: 20,
+                  ),
                   CupertinoButton(
-                    onPressed: () {
-                      login();
+                    onPressed: () async {
+                      await _authService.signInWithEmailAndPassword(
+                          emailController.text, passwordController.text);
                     },
                     color: Colors.blue,
-                    child: Text("Log In"),
+                    child: const Text("Log In"),
                   ),
-
-                  SizedBox(height: 10,),
-
+                  const SizedBox(
+                    height: 10,
+                  ),
                   CupertinoButton(
                     onPressed: () {
-                      Navigator.push(context, CupertinoPageRoute(
-                        builder: (context) => SignUpScreen()
-                      ));
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => const SignUpScreen()));
                     },
-                    child: Text("Create an Account"),
+                    child: const Text("Create an Account"),
                   ),
-
                 ],
               ),
             ),
-
           ],
         ),
       ),
