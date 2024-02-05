@@ -1,4 +1,4 @@
-import 'package:ambedkar_student_housing/screens/email_auth/signup_screen.dart';
+import 'package:ambedkar_student_housing/screens/auth/signup_screen.dart';
 import 'package:ambedkar_student_housing/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                           context,
                           CupertinoPageRoute(
-                              builder: (context) => const SignUpScreen()));
+                              builder: (context) => SignUpScreen()));
                     },
                     child: const Text("Create an Account"),
                   ),
