@@ -1,5 +1,6 @@
 import 'package:ambedkar_student_housing/screens/auth/signup_screen.dart';
 import 'package:ambedkar_student_housing/services/auth.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,20 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
 
   final AuthService _authService = AuthService();
+  final _formKey = GlobalKey<FormState>();
+
+  // text field state
+  String email = '';
+  String password = '';
+
+  String? validateEmail(String? value) {
+    return value!.isEmpty || !EmailValidator.validate(value)
+        ? 'Enter a valid email address'
+        : null;
+
+    //bool invalid = EmailValidator.validate(email);
+    //print(invalid);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,55 +39,61 @@ class _LoginScreenState extends State<LoginScreen> {
         centerTitle: true,
         title: const Text("Login"),
       ),
-      body: SafeArea(
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Column(
-                children: [
-                  TextField(
-                    controller: emailController,
-                    decoration:
-                        const InputDecoration(labelText: "Email Address"),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextField(
-                    controller: passwordController,
-                    decoration: const InputDecoration(labelText: "Password"),
-                    obscureText: true,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  CupertinoButton(
-                    onPressed: () async {
-                      await _authService.signInWithEmailAndPassword(
-                          emailController.text, passwordController.text);
-                    },
-                    color: Colors.blue,
-                    child: const Text("Log In"),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  CupertinoButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => SignUpScreen()));
-                    },
-                    child: const Text("Create an Account"),
-                  ),
-                ],
+      body: Container(
+        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                decoration:
+                const InputDecoration(labelText: "Email Address"),
+                validator: (val) => val!.isEmpty ? 'Enter an email' : null,
+                onChanged: (val) {
+                  setState(() => email = val);
+                },
+
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: "Password"),
+                obscureText: true,
+                validator: (val) => val!.length < 6 ? 'Enter a password 6+ chars long' : null,
+                onChanged: (val) {
+                  setState(() => password = val);
+                },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CupertinoButton(
+                onPressed: () async {
+                if(_formKey.currentState!.validate()){
+                  await _authService.signInWithEmailAndPassword(
+                      email, password);
+                }
+               },
+                color: Colors.blue,
+                child: const Text("Log In"),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              CupertinoButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => SignUpScreen()));
+                },
+                child: const Text("Create an Account"),
+              ),
+            ],
+          ),
         ),
-      ),
+      )
     );
   }
 }
