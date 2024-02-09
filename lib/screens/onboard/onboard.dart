@@ -1,5 +1,6 @@
 import 'package:ambedkar_student_housing/config/constant.dart';
 import 'package:ambedkar_student_housing/model/onboard_model.dart';
+import 'package:ambedkar_student_housing/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,7 +18,6 @@ class _OnBoardState extends State<OnBoard> {
   int currentIndex = 0;
   late PageController _pageController;
   late Size _size;
-  //late List<OnboardModel> screens;
 
   @override
   void initState() {
@@ -31,22 +31,32 @@ class _OnBoardState extends State<OnBoard> {
     super.dispose();
   }
 
+  redirectScreen(index){
+    if (index == screens.length - 1) {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
+    } else {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.linear,
+      );
+    }
+  }
   _storeOnboardInfo() async {
-    print("Shared pref called");
     int isViewed = 0;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('onBoard', isViewed);
-    print(prefs.getInt('onBoard'));
   }
+
   Widget buttonWidget(int index) {
     if (index != 0) {
       /// any other task
       return  Padding(
-        padding: EdgeInsets.only(left: 30),
+        padding: const EdgeInsets.only(left: 30),
         child: InkWell(
           onTap: () async {
             _pageController.previousPage(
-              duration: Duration(milliseconds: 200),
+              duration: const Duration(milliseconds: 200),
               curve: Curves.linear,
             );
           },
@@ -56,7 +66,7 @@ class _OnBoardState extends State<OnBoard> {
             child: IconButton(
                 color: Color.fromARGB(1, 3, 5, 61),
                 onPressed: null,
-                icon: Icon(Icons.arrow_back_sharp)
+                icon: Icon(Icons.arrow_back_sharp, color: Color.fromARGB(255, 3, 5, 61),)
             ),
           ),
         ),
@@ -104,6 +114,7 @@ class _OnBoardState extends State<OnBoard> {
                         onTap: () async {
 
                             await _storeOnboardInfo();
+                            // ignore: use_build_context_synchronously
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (context) => const LoginScreen()));
                           },
@@ -272,46 +283,15 @@ class _OnBoardState extends State<OnBoard> {
                                               children: [
                                                 buttonWidget(index),
                                                 SizedBox(width: index == 0 ? 0 : 20),
-                                                // const IconButton(
-                                                //     onPressed: null,
-                                                //     icon: Icon(Icons
-                                                //         .arrow_left_rounded)),
-                                                ElevatedButton(
+                                                CustomButton(
                                                   onPressed: () {
-                                                    if(index == screens.length - 1){
-                                                      Navigator.pushReplacement(
-                                                          context, MaterialPageRoute(builder: (context) => const LoginScreen()));
-                                                    }else{
-                                                      _pageController.nextPage(
-                                                        duration: Duration(milliseconds: 200),
-                                                        curve: Curves.linear,
-                                                      );
-                                                    }
+                                                    redirectScreen(index);
                                                   },
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    backgroundColor:
-                                                        const Color.fromARGB(
-                                                            255, 31, 46, 195),
-                                                    elevation: 3,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10.0)),
-                                                    minimumSize: const Size(190, 54),
-                                                  ),
-                                                  child: Text(
-                                                    screens[index].buttonText,
-                                                    style: TextStyle(
-                                                      color: kwhite,
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                    ),
-                                                  ),
-                                                ),
+                                                  buttonText : screens[index].buttonText, 
+                                                  buttonColor: const Color.fromARGB(255, 31, 46, 195),
+                                                  borderRadius: 10.0,
+                                                  textColor: kwhite,
+                                                 ),
                                               ],
                                             ),
                                           ),
