@@ -1,6 +1,6 @@
 import 'package:ambedkar_student_housing/screens/auth/login_screen.dart';
 import 'package:ambedkar_student_housing/services/auth.dart';
-import 'package:ambedkar_student_housing/widgets/back_button.dart';
+import 'package:ambedkar_student_housing/widgets/custom_back_button.dart';
 import 'package:ambedkar_student_housing/widgets/custom_button.dart';
 import 'package:ambedkar_student_housing/widgets/custom_text_form_field.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -52,7 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget _buildBackButton() {
-    return BackButtonWidget(
+    return CustomBackButton(
       onPressed: () {
         Navigator.pushReplacement(
           context,
