@@ -1,4 +1,4 @@
-import 'package:ambedkar_student_housing/model/userFromDb.dart';
+import 'package:ambedkar_student_housing/model/user_from_db.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -25,17 +25,22 @@ class AuthService {
     }
   }
 
-  Future signUpWithEmailAndPassword(String email, String password) async {
+  Future signUpWithEmailAndPassword(
+      String email, String password, String fullName) async {
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
       User? user = userCredential.user;
-      if (user?.emailVerified == false) {
-        return null;
+      if (user != null) {
+        user.updateDisplayName(fullName);
+        if (user.emailVerified == false) {
+          await user.sendEmailVerification();
+          return null;
+        }
       }
       return _userFromFirebase(user!);
     } catch (ex) {
-      return null;
+      rethrow;
     }
   }
 
