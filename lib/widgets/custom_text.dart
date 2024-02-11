@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CustomText extends StatelessWidget {
-   CustomText({
+  CustomText({
     required this.text,
     this.fontSize,
     this.fontFamily,
     this.textColor,
-     this.fontWeight,
-     this.textAlign,
+    this.fontWeight,
+    this.textAlign,
     super.key,
   });
 
-String text;
-double? fontSize;
-String? fontFamily;
-Color? textColor;
-FontWeight? fontWeight;
-TextAlign? textAlign;
+  String text;
+  double? fontSize;
+  String? fontFamily;
+  Color? textColor;
+  FontWeight? fontWeight;
+  TextAlign? textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +25,10 @@ TextAlign? textAlign;
       text,
       textAlign: textAlign,
       style: TextStyle(
-        fontSize: fontSize ?? 25.0,
-        fontFamily: fontFamily ?? 'Lato',
-        color: textColor ?? Colors.black,
-        fontWeight: fontWeight
-      ),
+          fontSize: fontSize ?? 25.0,
+          fontFamily: fontFamily ?? 'Lato',
+          color: textColor ?? Colors.black,
+          fontWeight: fontWeight),
     );
   }
 }

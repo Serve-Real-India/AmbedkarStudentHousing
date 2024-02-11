@@ -4,7 +4,6 @@ import 'package:ambedkar_student_housing/screens/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -19,30 +18,24 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-   Future.delayed(const Duration(seconds: 3),() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const Wrapper(),
-      
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (_) => const Wrapper(),
       ));
-   });
-  //  Timer(const Duration(seconds: 3), () { 
-  //   Navigator.pushReplacement(context, 
-  //     MaterialPageRoute(builder: (context)=> const Wrapper())
-  //   );
-  //  });
+    });
   }
 
   @override
   void dispose() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -51,16 +44,15 @@ class _SplashScreenState extends State<SplashScreen>
           ),
         ),
         child: Container(
-          decoration:  const BoxDecoration(
-            gradient: LinearGradient(
-                colors: [
-                  Color.fromRGBO(33, 56, 138, 0.8),
-                  Color.fromRGBO(33, 44, 138, 0.3),
-                  //Colors.yellow.withOpacity(0.6)
-                ],
-                stops: [0.0,0.6],
-                begin: Alignment.topLeft
-            ),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+              Color.fromRGBO(33, 56, 138, 0.8),
+              Color.fromRGBO(33, 44, 138, 0.3),
+              //Colors.yellow.withOpacity(0.6)
+            ], stops: [
+              0.0,
+              0.6
+            ], begin: Alignment.topLeft),
           ),
           child: Container(
             decoration: const BoxDecoration(
@@ -78,39 +70,10 @@ class _SplashScreenState extends State<SplashScreen>
                 image: DecorationImage(
                   scale: 5.2,
                   image: AssetImage("assets/images/logo-final.png"),
-                  //fit: BoxFit.fitWidth,
                 ),
               ),
-
             ),
           ),
-          //       child: Align(
-          //         alignment: Alignment.centerLeft,
-          //         child: Container(
-          //           width: 300,
-          //           margin: EdgeInsets.only(top: 200.0),
-          //           padding: EdgeInsets.all(16.0),
-          //           decoration: BoxDecoration(
-          //             gradient: LinearGradient(
-          // colors: [Colors.purple, Colors.red.withOpacity(0)]
-          //             )
-          //           ),
-          //           child: Text("Shop"),
-          //         ),
-          //       )
-
-        )
-    );
-//      return Container(
-//   decoration: const BoxDecoration(
-//     image: DecorationImage(
-//       image: AssetImage("assets/images/splash/background.png"),
-//       fit: BoxFit.cover,
-//     ),
-//   ),
-//   child: Scaffold(
-//     backgroundColor: Colors.transparent,
-//     body: Container(),
-// ),);
+        ));
   }
 }

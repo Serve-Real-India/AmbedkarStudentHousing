@@ -1,4 +1,4 @@
-import 'package:ambedkar_student_housing/screens/auth/login_screen.dart';
+import 'package:ambedkar_student_housing/screens/onboard/login_option_screen.dart';
 import 'package:ambedkar_student_housing/services/auth.dart';
 import 'package:ambedkar_student_housing/widgets/custom_back_button.dart';
 import 'package:ambedkar_student_housing/widgets/custom_button.dart';
@@ -56,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       onPressed: () {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
+          MaterialPageRoute(builder: (context) => const LoginOptionScreen()),
         );
       },
     );

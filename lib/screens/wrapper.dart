@@ -4,8 +4,6 @@ import 'package:ambedkar_student_housing/screens/onboard/welcome_page.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-import 'onboard/onboard.dart';
-
 class Wrapper extends StatelessWidget {
   const Wrapper({super.key});
 
@@ -14,8 +12,6 @@ class Wrapper extends StatelessWidget {
     final user = Provider.of<UserFromDb?>(context);
 
     if (user == null) {
-      //return const LoginScreen();
-      //return const OnBoard();
       return const WelcomePageScreen();
     } else {
       return HomeScreen();

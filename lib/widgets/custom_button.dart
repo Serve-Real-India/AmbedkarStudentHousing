@@ -13,7 +13,7 @@ class CustomButton extends StatelessWidget {
     this.icon,
     //this.index,
     Key? key,
-   }) : super(key: key);
+  }) : super(key: key);
 
   VoidCallback onPressed;
   Color? buttonColor;
@@ -31,26 +31,24 @@ class CustomButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: buttonColor,
         elevation: 3,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius ?? 20)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius ?? 20)),
         minimumSize: const Size(190, 60),
       ),
       child: Row(
         children: [
-          icon ?? SizedBox.shrink(),
+          icon ?? const SizedBox.shrink(),
           SizedBox(width: icon != null ? 10 : 0),
           Text(
             buttonText,
             style: TextStyle(
-              color: textColor,
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'Lato'
-            ),
+                color: textColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'Lato'),
           ),
         ],
       ),
     );
   }
 }
-
