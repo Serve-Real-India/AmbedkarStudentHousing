@@ -1,5 +1,4 @@
-import 'package:ambedkar_student_housing/model/userFromDb.dart';
-import 'package:ambedkar_student_housing/screens/auth/login_screen.dart';
+import 'package:ambedkar_student_housing/model/user_from_db.dart';
 import 'package:ambedkar_student_housing/screens/home_screen.dart';
 import 'package:ambedkar_student_housing/screens/onboard/welcome_page.dart';
 import 'package:flutter/widgets.dart';
