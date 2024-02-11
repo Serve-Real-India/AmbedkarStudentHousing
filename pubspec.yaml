@@ -87,6 +87,9 @@ flutter:
      - family: Lato
        fonts:
          - asset: assets/fonts/Lato-Regular.ttf
+     - family: Raleway
+       fonts:
+         - asset: assets/fonts/Raleway-Regular.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #

@@ -40,3 +40,10 @@ List<OnboardModel> screens = <OnboardModel>[
     ),
     
   ];
+
+List<String> imageList = [
+  'assets/images/img-4.png',
+  'assets/images/img-3.png',
+  'assets/images/img-5.png',
+  'assets/images/img-6.png'
+];

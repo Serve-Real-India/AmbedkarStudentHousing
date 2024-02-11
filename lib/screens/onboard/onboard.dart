@@ -1,6 +1,9 @@
 import 'package:ambedkar_student_housing/config/constant.dart';
 import 'package:ambedkar_student_housing/model/onboard_model.dart';
+import 'package:ambedkar_student_housing/screens/onboard/login_option_screen.dart';
 import 'package:ambedkar_student_housing/widgets/custom_button.dart';
+import 'package:ambedkar_student_housing/widgets/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,7 +37,7 @@ class _OnBoardState extends State<OnBoard> {
   redirectScreen(index){
     if (index == screens.length - 1) {
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
+          CupertinoPageRoute(builder: (context) => const LoginOptionScreen()));
     } else {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 200),
@@ -158,58 +161,34 @@ class _OnBoardState extends State<OnBoard> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        screens[index].text,
+                                      CustomText(text: screens[index].text,
+                                        fontFamily: 'Lato',
+                                        fontSize: index == 0 ? 25.0 : 12,
+                                        textColor: index == 0 ? kblack : const Color.fromARGB(
+                                            255, 83, 88, 122),
                                         textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: index != 0 ? FontWeight.w400 : null,
-                                          fontSize: index == 0 ? 25.0 : 12,
-                                          //fontWeight: FontWeight.values,
-                                          fontFamily: 'Lato',
-                                          color:
-                                              index == 0 ? kblack : const Color.fromARGB(
-                                                  255, 83, 88, 122),
-                                        ),
+                                        fontWeight: index != 0 ? FontWeight.w400 : null,
+
                                       ),
                                       Row(
                                         children: [
-                                          Text(
-                                            index == 0 ? 'call' : '',
-                                            style: TextStyle(
-                                              fontSize: 25.0,
-                                              //fontWeight: FontWeight.values,
-                                              fontFamily: 'Lato',
-                                              color: index % 2 == 0
-                                                  ? kblack
-                                                  : kblack,
-                                            ),
-                                          ),
+                                          CustomText(text: index == 0 ? 'call' : '',fontFamily: 'Lato', fontSize: 25.0, textColor: kblack,),
                                           const SizedBox(width: 7),
-                                          Text(
-                                            index == 0 ? 'home' : '',
-                                            style: const TextStyle(
-                                                fontSize: 25.0,
-                                                //fontWeight: FontWeight.values,
-                                                fontFamily: 'Lato',
-                                                color: Color.fromARGB(
-                                                    255, 20, 34, 165),
-                                                fontWeight: FontWeight.w500),
-                                          )
+                                          CustomText(text: index == 0 ? 'home' : '',fontFamily: 'Lato', fontSize: 25.0, textColor: const Color.fromARGB(
+                                              255, 20, 34, 165),fontWeight: FontWeight.w800),
                                         ],
                                       ),
                                       SizedBox(height: index == 0 ? 20 : 0),
-                                      Text(
-                                        screens[index].desc,
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: index != 0 ? FontWeight.w700 : null,
-                                          fontSize: 14.0,
+                                      CustomText(
+                                          text: screens[index].desc,
+                                          textAlign: TextAlign.left,
                                           fontFamily: 'Lato',
-                                          color:
-                                              index == 0 ? kblack : const Color.fromARGB(
-                                                  255, 83, 88, 122),
-                                        ),
+                                          fontSize: 14.0,
+                                          textColor: index == 0 ? kblack : const Color.fromARGB(
+                                              255, 83, 88, 122),
+                                          fontWeight: index != 0 ? FontWeight.w700 : null
                                       ),
+
                                     ],
                                   ),
                                 ),
@@ -310,3 +289,5 @@ class _OnBoardState extends State<OnBoard> {
     ));
   }
 }
+
+

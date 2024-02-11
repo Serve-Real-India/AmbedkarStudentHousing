@@ -1,5 +1,6 @@
 import 'package:ambedkar_student_housing/firebase_options.dart';
 import 'package:ambedkar_student_housing/model/userFromDb.dart';
+import 'package:ambedkar_student_housing/screens/onboard/login_option_screen.dart';
 import 'package:ambedkar_student_housing/screens/onboard/onboard.dart';
 import 'package:ambedkar_student_housing/screens/splash_screen.dart';
 import 'package:ambedkar_student_housing/services/auth.dart';
@@ -30,6 +31,7 @@ class Home extends StatelessWidget {
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: SplashScreen(),
+        //home: LoginOptionScreen(),
       ),
     );
   }

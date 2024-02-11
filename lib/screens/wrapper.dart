@@ -1,6 +1,7 @@
 import 'package:ambedkar_student_housing/model/userFromDb.dart';
 import 'package:ambedkar_student_housing/screens/auth/login_screen.dart';
 import 'package:ambedkar_student_housing/screens/home_screen.dart';
+import 'package:ambedkar_student_housing/screens/onboard/welcome_page.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,8 @@ class Wrapper extends StatelessWidget {
 
     if (user == null) {
       //return const LoginScreen();
-      return const OnBoard();
+      //return const OnBoard();
+      return const WelcomePageScreen();
     } else {
       return HomeScreen();
     }

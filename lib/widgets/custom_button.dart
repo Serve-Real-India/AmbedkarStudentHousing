@@ -33,11 +33,12 @@ class CustomButton extends StatelessWidget {
         elevation: 3,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius ?? 20)),
-        minimumSize: const Size(190, 54),
+        minimumSize: const Size(190, 60),
       ),
       child: Row(
         children: [
           icon ?? SizedBox.shrink(),
+          SizedBox(width: icon != null ? 10 : 0),
           Text(
             buttonText,
             style: TextStyle(
