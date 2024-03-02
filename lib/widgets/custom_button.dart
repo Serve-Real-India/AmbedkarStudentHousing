@@ -1,5 +1,3 @@
-//import 'package:ambedkar_student_housing/model/onboard_model.dart';
-//import 'package:ambedkar_student_housing/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -36,6 +34,7 @@ class CustomButton extends StatelessWidget {
         minimumSize: const Size(190, 60),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           icon ?? const SizedBox.shrink(),
           SizedBox(width: icon != null ? 10 : 0),
