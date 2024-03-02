@@ -20,7 +20,6 @@ class OnBoard extends StatefulWidget {
 class _OnBoardState extends State<OnBoard> {
   int currentIndex = 0;
   late PageController _pageController;
-  late Size _size;
 
   @override
   void initState() {
@@ -34,7 +33,7 @@ class _OnBoardState extends State<OnBoard> {
     super.dispose();
   }
 
-  redirectScreen(index){
+  redirectScreen(index) {
     if (index == screens.length - 1) {
       Navigator.pushReplacement(context,
           CupertinoPageRoute(builder: (context) => const LoginOptionScreen()));
@@ -45,6 +44,7 @@ class _OnBoardState extends State<OnBoard> {
       );
     }
   }
+
   _storeOnboardInfo() async {
     int isViewed = 0;
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -54,7 +54,7 @@ class _OnBoardState extends State<OnBoard> {
   Widget buttonWidget(int index) {
     if (index != 0) {
       /// any other task
-      return  Padding(
+      return Padding(
         padding: const EdgeInsets.only(left: 30),
         child: InkWell(
           onTap: () async {
@@ -69,12 +69,13 @@ class _OnBoardState extends State<OnBoard> {
             child: IconButton(
                 color: Color.fromARGB(1, 3, 5, 61),
                 onPressed: null,
-                icon: Icon(Icons.arrow_back_sharp, color: Color.fromARGB(255, 3, 5, 61),)
-            ),
+                icon: Icon(
+                  Icons.arrow_back_sharp,
+                  color: Color.fromARGB(255, 3, 5, 61),
+                )),
           ),
         ),
       );
-
     }
     return SizedBox(width: index == 0 ? 100 : 20);
   }
@@ -87,57 +88,56 @@ class _OnBoardState extends State<OnBoard> {
       child: Column(
         children: [
           Container(
-            child: Container(
-              margin: const EdgeInsets.only(top: 37, bottom: 15),
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: <Widget>[
-                      Image.asset(
-                          "assets/images/logo.png",
-                        height: 67.0,
-                        width: 45.0,
-                        fit: BoxFit.cover,
-                        //fit: BoxFit.cover,
-                      ),
-                    ],
+            margin: const EdgeInsets.only(top: 37, bottom: 15),
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: <Widget>[
+                    Image.asset(
+                      "assets/images/logo.png",
+                      height: 67.0,
+                      width: 45.0,
+                      fit: BoxFit.cover,
+                      //fit: BoxFit.cover,
+                    ),
+                  ],
+                ),
+                Container(
+                  //color: Colors.grey[200],
+                  width: 86,
+                  height: 38,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: Colors.grey[200],
                   ),
-                  Container(
-                    //color: Colors.grey[200],
-                    width: 86,
-                    height: 38,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Colors.grey[200],
-                    ),
-                    child: Center(
-                      child: InkWell(
-                        onTap: () async {
-
-                            await _storeOnboardInfo();
-                            // ignore: use_build_context_synchronously
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) => const LoginScreen()));
-                          },
-                          child: Text(
-                          "skip",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: kblack,
-                              fontSize: 15,
-                              fontFamily: "Montserrat"),
-                        ),
+                  child: Center(
+                    child: InkWell(
+                      onTap: () async {
+                        await _storeOnboardInfo();
+                        // ignore: use_build_context_synchronously
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
+                      },
+                      child: Text(
+                        "skip",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: kblack,
+                            fontSize: 15,
+                            fontFamily: "Montserrat"),
                       ),
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
           ),
           Expanded(
-            child: Container(
+            child: SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: PageView.builder(
                     itemCount: screens.length,
@@ -150,137 +150,147 @@ class _OnBoardState extends State<OnBoard> {
                     itemBuilder: (_, index) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Container(
-                          //height: double.infinity,
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CustomText(text: screens[index].text,
-                                        fontFamily: 'Lato',
-                                        fontSize: index == 0 ? 25.0 : 12,
-                                        textColor: index == 0 ? kblack : const Color.fromARGB(
-                                            255, 83, 88, 122),
-                                        textAlign: TextAlign.left,
-                                        fontWeight: index != 0 ? FontWeight.w400 : null,
-
-                                      ),
-                                      Row(
-                                        children: [
-                                          CustomText(text: index == 0 ? 'call' : '',fontFamily: 'Lato', fontSize: 25.0, textColor: kblack,),
-                                          const SizedBox(width: 7),
-                                          CustomText(text: index == 0 ? 'home' : '',fontFamily: 'Lato', fontSize: 25.0, textColor: const Color.fromARGB(
-                                              255, 20, 34, 165),fontWeight: FontWeight.w800),
-                                        ],
-                                      ),
-                                      SizedBox(height: index == 0 ? 20 : 0),
-                                      CustomText(
-                                          text: screens[index].desc,
-                                          textAlign: TextAlign.left,
-                                          fontFamily: 'Lato',
-                                          fontSize: 14.0,
-                                          textColor: index == 0 ? kblack : const Color.fromARGB(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CustomText(
+                                      text: screens[index].text,
+                                      fontFamily: 'Lato',
+                                      fontSize: index == 0 ? 25.0 : 12,
+                                      textColor: index == 0
+                                          ? kblack
+                                          : const Color.fromARGB(
                                               255, 83, 88, 122),
-                                          fontWeight: index != 0 ? FontWeight.w700 : null
-                                      ),
-
-                                    ],
+                                      textAlign: TextAlign.left,
+                                      fontWeight:
+                                          index != 0 ? FontWeight.w400 : null,
+                                    ),
+                                    Row(
+                                      children: [
+                                        CustomText(
+                                          text: index == 0 ? 'call' : '',
+                                          fontFamily: 'Lato',
+                                          fontSize: 25.0,
+                                          textColor: kblack,
+                                        ),
+                                        const SizedBox(width: 7),
+                                        CustomText(
+                                            text: index == 0 ? 'home' : '',
+                                            fontFamily: 'Lato',
+                                            fontSize: 25.0,
+                                            textColor: const Color.fromARGB(
+                                                255, 20, 34, 165),
+                                            fontWeight: FontWeight.w800),
+                                      ],
+                                    ),
+                                    SizedBox(height: index == 0 ? 20 : 0),
+                                    CustomText(
+                                        text: screens[index].desc,
+                                        textAlign: TextAlign.left,
+                                        fontFamily: 'Lato',
+                                        fontSize: 14.0,
+                                        textColor: index == 0
+                                            ? kblack
+                                            : const Color.fromARGB(
+                                                255, 83, 88, 122),
+                                        fontWeight: index != 0
+                                            ? FontWeight.w700
+                                            : null),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: Container(
+                                  height: 445,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    //color: Colors.lightGreen,
+                                    image: DecorationImage(
+                                      image: AssetImage(screens[index].img),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(15.0),
+                                          child: SizedBox(
+                                            height: 10.0,
+                                            child: ListView.builder(
+                                              itemCount: screens.length,
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.horizontal,
+                                              itemBuilder: (context, index) {
+                                                return Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        margin: const EdgeInsets
+                                                            .symmetric(
+                                                            horizontal: 0.0),
+                                                        width: currentIndex ==
+                                                                index
+                                                            ? 70
+                                                            : 25,
+                                                        height: 3,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: currentIndex ==
+                                                                  index
+                                                              ? Colors.white
+                                                              : Colors.grey,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                      ),
+                                                    ]);
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(bottom: 30),
+                                          child: Row(
+                                            children: [
+                                              buttonWidget(index),
+                                              SizedBox(
+                                                  width: index == 0 ? 0 : 20),
+                                              CustomButton(
+                                                onPressed: () {
+                                                  redirectScreen(index);
+                                                },
+                                                buttonText:
+                                                    screens[index].buttonText,
+                                                buttonColor:
+                                                    const Color.fromARGB(
+                                                        255, 31, 46, 195),
+                                                borderRadius: 10.0,
+                                                textColor: kwhite,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                                const SizedBox(height: 20),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: Container(
-                                    height: 445,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                      //color: Colors.lightGreen,
-                                      image: DecorationImage(
-                                        image: AssetImage(screens[index].img),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    child: Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(15.0),
-                                            child: Container(
-                                              height: 10.0,
-                                              child: ListView.builder(
-                                                itemCount: screens.length,
-                                                shrinkWrap: true,
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                itemBuilder: (context, index) {
-                                                  return Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Container(
-                                                          margin:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                                  horizontal:
-                                                                      0.0),
-                                                          width: currentIndex ==
-                                                                  index
-                                                              ? 70
-                                                              : 25,
-                                                          height: 3,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: currentIndex ==
-                                                                    index
-                                                                ? Colors.white
-                                                                : Colors
-                                                                    .grey,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10.0),
-                                                          ),
-                                                        ),
-                                                      ]);
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 30),
-                                            child: Row(
-                                              children: [
-                                                buttonWidget(index),
-                                                SizedBox(width: index == 0 ? 0 : 20),
-                                                CustomButton(
-                                                  onPressed: () {
-                                                    redirectScreen(index);
-                                                  },
-                                                  buttonText : screens[index].buttonText, 
-                                                  buttonColor: const Color.fromARGB(255, 31, 46, 195),
-                                                  borderRadius: 10.0,
-                                                  textColor: kwhite,
-                                                 ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ]),
-                        ),
+                              )
+                            ]),
                       );
                     })),
           )
@@ -289,5 +299,3 @@ class _OnBoardState extends State<OnBoard> {
     ));
   }
 }
-
-

@@ -9,9 +9,8 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserFromDb?>(context);
-
-    if (user == null) {
+    final user = Provider.of<UserFromDb>(context);
+    if (user.uid == '') {
       return const WelcomePageScreen();
     } else {
       return HomeScreen();
