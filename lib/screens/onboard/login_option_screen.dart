@@ -1,5 +1,4 @@
 import 'package:ambedkar_student_housing/screens/auth/login_screen.dart';
-import 'package:ambedkar_student_housing/screens/auth/signup_screen.dart';
 import 'package:ambedkar_student_housing/widgets/custom_divider.dart';
 import 'package:ambedkar_student_housing/widgets/register_text.dart';
 import 'package:ambedkar_student_housing/widgets/social_media_login_options.dart';

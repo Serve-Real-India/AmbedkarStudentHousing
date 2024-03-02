@@ -1,4 +1,5 @@
 import 'package:ambedkar_student_housing/screens/onboard/login_option_screen.dart';
+import 'package:ambedkar_student_housing/screens/wrapper.dart';
 import 'package:ambedkar_student_housing/services/auth.dart';
 import 'package:ambedkar_student_housing/widgets/custom_button.dart';
 import 'package:ambedkar_student_housing/widgets/custom_divider.dart';
@@ -51,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   _buildCustomText(),
                   const SizedBox(height: 30),
+                  _buildErrorText(),
                   _buildForm(),
                   const SizedBox(height: 20),
                   const CustomDivider(text: "OR"),
@@ -107,8 +109,19 @@ class _LoginScreenState extends State<LoginScreen> {
             error = '';
           });
           try {
-            await widget._authService
+            dynamic result = await widget._authService
                 .signInWithEmailAndPassword(email, password);
+            if (result != null) {
+              // ignore: use_build_context_synchronously
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const Wrapper()),
+              );
+            } else {
+              setState(() {
+                error = 'Invalid email or password';
+              });
+            }
           } catch (e) {
             if (e is FirebaseException) {
               setState(() {
@@ -208,6 +221,13 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       },
       buttonBorderColor: const Color.fromARGB(255, 164, 117, 208),
+    );
+  }
+
+  Widget _buildErrorText() {
+    return Text(
+      error,
+      style: const TextStyle(color: Colors.red, fontSize: 14),
     );
   }
 }

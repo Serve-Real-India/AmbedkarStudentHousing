@@ -1,10 +1,13 @@
 import 'package:ambedkar_student_housing/config/constant.dart';
 import 'package:ambedkar_student_housing/model/onboard_model.dart';
+import 'package:ambedkar_student_housing/model/user_from_db.dart';
+import 'package:ambedkar_student_housing/screens/home_screen.dart';
 import 'package:ambedkar_student_housing/screens/onboard/login_option_screen.dart';
 import 'package:ambedkar_student_housing/widgets/custom_button.dart';
 import 'package:ambedkar_student_housing/widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../auth/login_screen.dart';
@@ -35,8 +38,14 @@ class _OnBoardState extends State<OnBoard> {
 
   redirectScreen(index) {
     if (index == screens.length - 1) {
-      Navigator.pushReplacement(context,
-          CupertinoPageRoute(builder: (context) => const LoginOptionScreen()));
+      Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context) {
+        final user = Provider.of<UserFromDb>(context);
+        if (user.uid == '') {
+          return const LoginOptionScreen();
+        } else {
+          return HomeScreen();
+        }
+      }));
     } else {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 200),
