@@ -1,5 +1,6 @@
 import 'package:ambedkar_student_housing/firebase_options.dart';
 import 'package:ambedkar_student_housing/model/user_from_db.dart';
+import 'package:ambedkar_student_housing/screens/onboard/login_option_screen.dart';
 import 'package:ambedkar_student_housing/screens/wrapper.dart';
 import 'package:ambedkar_student_housing/services/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,9 +24,15 @@ class Home extends StatelessWidget {
     return StreamProvider<UserFromDb>.value(
       value: AuthService().user,
       initialData: UserFromDb(uid: '', isEmailVerified: false),
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Wrapper(),
+        home: Consumer<UserFromDb>(builder: (context, user, child) {
+          if (user.uid == '' && user.isEmailVerified == true) {
+            return const LoginOptionScreen();
+          } else {
+            return const Wrapper();
+          }
+        }),
       ),
     );
   }
