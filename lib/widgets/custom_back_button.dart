@@ -9,16 +9,20 @@ class CustomBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFFF5F4F8),
-        shape: const CircleBorder(),
-        padding: const EdgeInsets.all(20),
-        elevation: 0,
-        side: BorderSide(color: borderColor ?? const Color(0xFFF5F4F8)),
+    return SizedBox(
+      width: 50, // <-- match_parent
+      height: 50, // <-- match-parent
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFFF5F4F8),
+          shape: const CircleBorder(),
+          padding: const EdgeInsets.only(left: 1),
+          //elevation: 0,
+          side: BorderSide(color: borderColor ?? const Color(0xFFF5F4F8)),
+        ),
+        child: const Icon(Icons.chevron_left),
       ),
-      child: const Icon(Icons.chevron_left),
     );
   }
 }

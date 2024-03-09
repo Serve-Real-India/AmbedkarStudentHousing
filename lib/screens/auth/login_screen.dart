@@ -39,45 +39,43 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-            child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildHeaderImageBackButton(),
-        Padding(
-            padding: const EdgeInsets.only(right: 20, left: 20, top: 20),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildCustomText(),
-                  const SizedBox(height: 30),
-                  _buildErrorText(),
-                  _buildForm(),
-                  const SizedBox(height: 20),
-                  const CustomDivider(text: "OR"),
-                  const SizedBox(height: 10),
-                  const SocialMediaLoginOption(),
-                  const RegisterText(),
-                ],
-              ),
-            )),
-      ],
-    )));
+      resizeToAvoidBottomInset : false,
+        body: SingleChildScrollView(
+          child: Column(
+                  //crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildHeaderImageBackButton(),
+                    _buildCustomText(),
+                    //const SizedBox(height: 20),
+                    _buildErrorText(),
+                    _buildForm(),
+                    const SizedBox(height: 60),
+                    const CustomDivider(text: "OR"),
+                    const SizedBox(height: 10),
+                    const SocialMediaLoginOption(),
+                    const RegisterText(),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+        ),
+        );
   }
 
   Widget _buildForm() {
     return Form(
       key: _formKey,
-      child: Column(children: [
-        _buildEmailField(),
-        const SizedBox(height: 20),
-        _buildPasswordField(),
-        const SizedBox(height: 0),
-        _buildPasswordVisibilityToggle(),
-        const SizedBox(height: 20),
-        _buildSignInButton(),
-      ]),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 24, right: 24),
+        child: Column(children: [
+          _buildEmailField(),
+          const SizedBox(height: 20),
+          _buildPasswordField(),
+          //const SizedBox(height: 0),
+          _buildPasswordVisibilityToggle(),
+          const SizedBox(height: 30),
+          _buildSignInButton(),
+        ]),
+      ),
     );
   }
 
@@ -102,43 +100,46 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildSignInButton() {
-    return CustomButton(
-      onPressed: () async {
-        if (_formKey.currentState!.validate()) {
-          setState(() {
-            error = '';
-          });
-          try {
-            dynamic result = await widget._authService
-                .signInWithEmailAndPassword(email, password);
-            if (result != null) {
-              // ignore: use_build_context_synchronously
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const Wrapper()),
-              );
-            } else {
-              setState(() {
-                error = 'Invalid email or password';
-              });
-            }
-          } catch (e) {
-            if (e is FirebaseException) {
-              setState(() {
-                error = e.message!;
-              });
-            } else {
-              setState(() {
-                error = e.toString();
-              });
+    return SizedBox(
+      width: 278,
+      child: CustomButton(
+        onPressed: () async {
+          if (_formKey.currentState!.validate()) {
+            setState(() {
+              error = '';
+            });
+            try {
+              dynamic result = await widget._authService
+                  .signInWithEmailAndPassword(email, password);
+              if (result != null) {
+                // ignore: use_build_context_synchronously
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Wrapper()),
+                );
+              } else {
+                setState(() {
+                  error = 'Invalid email or password';
+                });
+              }
+            } catch (e) {
+              if (e is FirebaseException) {
+                setState(() {
+                  error = e.message!;
+                });
+              } else {
+                setState(() {
+                  error = e.toString();
+                });
+              }
             }
           }
-        }
-      },
-      buttonText: 'LogIn',
-      buttonColor: const Color(0xFF1F2EC3),
-      textColor: Colors.white,
-      borderRadius: 10,
+        },
+        buttonText: 'Login',
+        buttonColor: const Color(0xFF1F2EC3),
+        textColor: Colors.white,
+        borderRadius: 10,
+      ),
     );
   }
 
@@ -163,19 +164,45 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildCustomText() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CustomText(
-          text: 'Let\'s Sign In',
-          fontFamily: 'Lato',
-          fontSize: 25,
-          fontWeight: FontWeight.w500,
-          textColor: const Color(0xFF252B5C),
+    
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 29),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            child: Row(
+          children: [
+            CustomText(
+              text: 'Let\'s',
+              fontFamily: 'Lato',
+              fontSize: 25,
+              textColor: const Color.fromRGBO(37, 43, 92, 1),
+              fontWeight: FontWeight.w500,
+            ),
+            const SizedBox(width: 5),
+            CustomText(
+              text: 'Sign In',
+              fontFamily: 'Lato',
+              fontSize: 25,
+              textColor: const Color.fromRGBO(37, 43, 92, 1),
+              fontWeight: FontWeight.w800,
+            ),
+          ],
         ),
-        const SizedBox(height: 20),
-        const Text("Lorem ispum dolor sit amet, consect")
-      ],
+        ),
+        const SizedBox(height: 25),
+        //const Text("Lorem ispum dolor sit amet, consect")
+          CustomText(
+            text: 'quis nostrud exercitation ullamco laboris nisi ut',
+            fontFamily: 'Lato',
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            textColor: const Color.fromRGBO(83, 88, 122, 1),
+          ),
+         
+        ],
+      ),
     );
   }
 

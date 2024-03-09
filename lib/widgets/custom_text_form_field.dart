@@ -32,11 +32,12 @@ class CustomTextFromField extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide.none,
         ),
-        prefixIcon: prefixIcon != null
+        suffixIcon: prefixIcon != null
             ? Icon(
                 prefixIcon,
                 size: 15,
                 color: const Color(0xFF252B5C),
+                
               )
             : null,
       ),

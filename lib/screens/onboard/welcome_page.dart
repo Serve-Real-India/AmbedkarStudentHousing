@@ -72,27 +72,27 @@ class _WelcomePageScreenState extends State<WelcomePageScreen>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10, left: 110),
-                    child: Row(
-                      children: [
-                        CustomButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => const OnBoard()));
-
-                            // Navigator.pushReplacement(context,
-                            //     MaterialPageRoute(builder: (context) => const OnBoard()));
-                          },
-                          buttonText: 'let’s start',
-                          buttonColor: const Color.fromARGB(255, 31, 46, 195),
-                          borderRadius: 10.0,
-                          textColor: kwhite,
-                        ),
-                      ],
-                    ),
+                  SizedBox(
+                    width: 190,
+                    child: Column(
+                        children: [
+                          CustomButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => const OnBoard()));
+                    
+                              // Navigator.pushReplacement(context,
+                              //     MaterialPageRoute(builder: (context) => const OnBoard()));
+                            },
+                            buttonText: 'let’s start',
+                            buttonColor: const Color.fromARGB(255, 31, 46, 195),
+                            borderRadius: 10.0,
+                            textColor: kwhite,
+                          ),
+                        ],
+                      ),
                   ),
                   const SizedBox(height: 20),
                   Column(

@@ -31,7 +31,7 @@ class CustomButton extends StatelessWidget {
         elevation: 3,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 20)),
-        minimumSize: const Size(190, 60),
+        minimumSize: const Size(150, 60),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

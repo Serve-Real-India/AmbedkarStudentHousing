@@ -1,8 +1,10 @@
 import 'package:ambedkar_student_housing/screens/onboard/login_option_screen.dart';
 import 'package:ambedkar_student_housing/services/auth.dart';
-import 'package:ambedkar_student_housing/widgets/custom_back_button.dart';
 import 'package:ambedkar_student_housing/widgets/custom_button.dart';
+import 'package:ambedkar_student_housing/widgets/custom_divider.dart';
 import 'package:ambedkar_student_housing/widgets/custom_text_form_field.dart';
+import 'package:ambedkar_student_housing/widgets/header_image_back_button.dart';
+import 'package:ambedkar_student_housing/widgets/social_media_login_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -24,42 +26,84 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool _obscureText = true;
   String error = '';
   String emailSent = '';
+  late Size size ;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          decoration: const BoxDecoration(
+    size = MediaQuery.sizeOf(context);
+   return SafeArea(
+    child: Scaffold(
+      body: Container(
+        width: size.width,
+        height: size.height,
+        decoration: const BoxDecoration(
             color: Colors.white,
           ),
-          padding: const EdgeInsets.all(20),
+        //padding: const EdgeInsets.all(20),
+        child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildBackButton(),
               const SizedBox(height: 30),
+              Padding(padding: const EdgeInsets.only(left: 24,right: 24),
+              child: Column(
+                //mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
               _buildTitle(),
               const SizedBox(height: 20),
               _buildSubtitle(),
-              const SizedBox(height: 50),
+              const SizedBox(height: 30),
               _buildForm(),
-            ],
-          ),
+             
+                ],
+              ),
+              )
+              
+              //  Padding(
+              //    padding: const EdgeInsets.only(left: 24),
+              //    child: _buildTitle(),
+              //  ),
+              //   const SizedBox(height: 20),
+              //   Padding(
+              //     padding: const EdgeInsets.only(left: 24),
+              //     child: _buildSubtitle(),
+              //   ),
+              //   const SizedBox(height: 40),
+              //   Padding(
+              //     padding: const EdgeInsets.only(left: 24,right: 24),
+              //     child: _buildForm(),
+              //   ),
+            ]
+            ),
         ),
       ),
+    )
     );
   }
 
   Widget _buildBackButton() {
-    return CustomBackButton(
+     return HeaderImageBackButton(
+      imagePath: 'assets/images/city.png',
+      icon: const Icon(Icons.chevron_left, color: Colors.black),
       onPressed: () {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const LoginOptionScreen()),
         );
       },
+      buttonBorderColor: const Color.fromARGB(255, 164, 117, 208),
     );
+    // return CustomBackButton(
+    //   onPressed: () {
+    //     Navigator.pushReplacement(
+    //       context,
+    //       MaterialPageRoute(builder: (context) => const LoginOptionScreen()),
+    //     );
+    //   },
+    // );
   }
 
   Widget _buildTitle() {
@@ -98,6 +142,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           const SizedBox(height: 10),
           _buildPasswordVisibilityToggle(),
           const SizedBox(height: 20),
+          const CustomDivider(text: "OR"),
+          const SizedBox(height: 20),
+           const SocialMediaLoginOption(),
+           const SizedBox(height: 20),
           _buildRegisterButton(),
           const SizedBox(height: 20),
           _buildErrorText(),
@@ -173,6 +221,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget _buildPasswordVisibilityToggle() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Text(
           'Terms and Conditions',
@@ -202,37 +251,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget _buildRegisterButton() {
-    return CustomButton(
-      onPressed: () async {
-        if (_formKey.currentState!.validate()) {
-          setState(() {
-            error = '';
-            emailSent = '';
-          });
-          try {
-            dynamic result = await widget._auth
-                .signUpWithEmailAndPassword(email, password, fullName);
-            if (result == null) {
-              setState(() {
-                emailSent = 'A verification email has been sent to $email';
-              });
-            }
-          } catch (ex) {
-            if (ex is FirebaseException) {
-              setState(() {
-                error = ex.message!;
-              });
-            } else {
-              setState(() {
-                error = ex.toString();
-              });
+    return SizedBox(
+      width: 278,
+      child: CustomButton(
+        onPressed: () async {
+          if (_formKey.currentState!.validate()) {
+            setState(() {
+              error = '';
+              emailSent = '';
+            });
+            try {
+              dynamic result = await widget._auth
+                  .signUpWithEmailAndPassword(email, password, fullName);
+              if (result == null) {
+                setState(() {
+                  emailSent = 'A verification email has been sent to $email';
+                });
+              }
+            } catch (ex) {
+              if (ex is FirebaseException) {
+                setState(() {
+                  error = ex.message!;
+                });
+              } else {
+                setState(() {
+                  error = ex.toString();
+                });
+              }
             }
           }
-        }
-      },
-      buttonText: 'Register',
-      buttonColor: const Color(0xFF1F2EC3),
-      textColor: Colors.white,
+        },
+        buttonText: 'Register',
+        buttonColor: const Color(0xFF1F2EC3),
+        textColor: Colors.white,
+      ),
     );
   }
 

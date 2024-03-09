@@ -5,6 +5,7 @@ import 'package:ambedkar_student_housing/widgets/social_media_login_options.dart
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../../config/constant.dart';
 import '../../model/onboard_model.dart';
 import '../../widgets/custom_button.dart';

@@ -86,7 +86,7 @@ class _OnBoardState extends State<OnBoard> {
         ),
       );
     }
-    return SizedBox(width: index == 0 ? 100 : 20);
+    return SizedBox(width: index == 0 ? 0 : 40);
   }
 
   @override
@@ -160,7 +160,7 @@ class _OnBoardState extends State<OnBoard> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -217,7 +217,7 @@ class _OnBoardState extends State<OnBoard> {
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 8.0),
                                 child: Container(
-                                  height: 445,
+                                  height: MediaQuery.of(context).size.height - 350,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(30),
                                     //color: Colors.lightGreen,
@@ -275,6 +275,7 @@ class _OnBoardState extends State<OnBoard> {
                                           padding:
                                               const EdgeInsets.only(bottom: 30),
                                           child: Row(
+                                            mainAxisAlignment: index == 0 ? MainAxisAlignment.center : MainAxisAlignment.start,
                                             children: [
                                               buttonWidget(index),
                                               SizedBox(

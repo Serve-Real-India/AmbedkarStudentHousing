@@ -20,6 +20,7 @@ class RegisterText extends StatelessWidget {
             textColor: const Color.fromRGBO(83, 88, 122, 1),
             fontWeight: FontWeight.w400,
           ),
+          const SizedBox(width: 3.0),
           InkWell(
               onTap: () async {
                 Navigator.pushReplacement(context,

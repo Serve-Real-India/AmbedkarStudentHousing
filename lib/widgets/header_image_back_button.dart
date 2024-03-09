@@ -20,8 +20,8 @@ class HeaderImageBackButton extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     double containerHeight = (screenHeight) * 0.15;
     return Container(
-        width: double.infinity,
-        height: containerHeight,
+       width: MediaQuery.of(context).size.width,
+        height: screenHeight * 0.20,
         decoration: BoxDecoration(
           image: _buildDecorationImage(),
         ),
@@ -30,13 +30,14 @@ class HeaderImageBackButton extends StatelessWidget {
 
   DecorationImage _buildDecorationImage() {
     return DecorationImage(
-      fit: BoxFit.cover,
+      fit: BoxFit.fill,
       image: AssetImage(imagePath),
     );
   }
 
   Widget _buildCustomRow() {
     return Row(
+      mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -47,7 +48,7 @@ class HeaderImageBackButton extends StatelessWidget {
 
   Widget _buildCustomBackButton() {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, left: 20),
+      padding: const EdgeInsets.only(top: 40, left: 20),
       child: CustomBackButton(
         onPressed: onPressed,
         borderColor: buttonBorderColor,
